@@ -1,12 +1,12 @@
-package com.xingli.payment;
+package com.xingli.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PaymentApplication {
+public class OrderApplication {
     public static void main(String[] args) {
-        SpringApplication.run(PaymentApplication.class, args);
+        SpringApplication.run(OrderApplication.class, args);
         System.out.println("PaymentApplication启动成功");
     }
 }

@@ -7,10 +7,12 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>payment</module>
+        <module>order</module>
+        <module>common</module>
     </modules>
     <packaging>pom</packaging>
 
-    <!--统一管理jar包版本-->
+    <!-- 统一管理jar包版本 -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -18,24 +20,14 @@
         <junit.version>4.12</junit.version>
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.16.18</lombok.version>
-        <mysql.version>8.0.18</mysql.version>
-        <druid.version>1.1.16</druid.version>
-        <druid.spring.boot.starter.version>1.1.10</druid.spring.boot.starter.version>
-        <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
-        <spring.cloud.version>Hoxton.SR1</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
+        <mysql.version>5.1.47</mysql.version>
+        <druid.version>1.1.21</druid.version>
         <mybatis.spring.boot.version>1.3.0</mybatis.spring.boot.version>
-        <mybatis-spring-boot-starter.version>2.1.1</mybatis-spring-boot-starter.version>
-        <hutool-all.version>5.1.0</hutool-all.version>
     </properties>
 
+    <!-- 子模块继承之后，提供作用：锁定版本+子modlue不用写groupId和version  -->
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
-            </dependency>
             <!--spring boot 2.2.2-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -52,8 +44,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!--spring cloud 阿里巴巴-->
+            <!--spring cloud alibaba 2.1.0.RELEASE-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -61,95 +52,51 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--mysql-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
-                <scope>runtime</scope>
             </dependency>
-            <!-- druid-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
             </dependency>
-
-            <!--mybatis-->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.spring.boot.version}</version>
             </dependency>
-            <!--junit-->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
             </dependency>
-            <!--log4j-->
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-site-plugin -->
             <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.8.2</version>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
-    <name>Maven</name>
-    <!-- FIXME change it to the project's website -->
-    <url>http://maven.apache.org/</url>
-    <inceptionYear>2001</inceptionYear>
-
-    <distributionManagement>
-        <site>
-            <id>website</id>
-            <url>scp://webhost.company.com/www/website</url>
-        </site>
-    </distributionManagement>
-
     <build>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-            <plugins>
-                <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.1.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.7.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>3.0.0</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <locales>en,fr</locales>
+                    <fork>true</fork>
+                    <addResources>true</addResources>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </reporting>
 
     <!--第三方maven私服-->
     <repositories>
